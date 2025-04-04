@@ -1,0 +1,23 @@
+// server.js
+const app = require('./app');
+const io = require('socket.io')(app.server);
+
+// Connect event handler: When a user connects
+io.on('connection', (socket) => {
+  console.log(`New socket connection established`);
+
+  // Emit a message to the connected client
+  socket.emit('message', 'Welcome to the chat!');
+
+  // Handle incoming messages from the connected client
+  socket.on('message', (msg) => {
+    console.log(`Received message: ${msg}`);
+    // Broadcast the message to all connected clients
+    io.emit('message', msg);
+  });
+
+  // Handle disconnection event
+  socket.on('disconnect', () => {
+    console.log(`Socket disconnected`);
+  });
+});

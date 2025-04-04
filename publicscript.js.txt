@@ -1,0 +1,9 @@
+// public/script.js
+document.addEventListener('DOMContentLoaded', () => {
+  // Set up event listeners for the form
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = document.getElementById('message').value;
+    socket.emit('message', message);
+  });
+});
